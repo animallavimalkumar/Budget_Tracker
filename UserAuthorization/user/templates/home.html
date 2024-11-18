@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Budget Tracker{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <!-- Welcome Section -->
+        <h2 class="mb-4 fade-in">Welcome, {{ user.name }}!</h2>
+
+        <!-- Incomes Section -->
+        <h3 class="mb-3 text-success fade-in">Your Incomes</h3>
+        <ul class="list-group mb-4">
+            {% for income in income %}
+                <li class="list-group-item d-flex justify-content-between align-items-center mb-3 slide-in-left">
+                    <div>
+                        <strong class="text-primary">{{ income.amount }}</strong> - 
+                        <span class="font-weight-bold">{{ income.category.name }}</span> - 
+                        <small class="text-muted">{{ income.date }}</small>
+                    </div>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-center fade-in">No incomes recorded yet.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Expenses Section -->
+        <h3 class="mb-3 text-danger fade-in">Your Expenses</h3>
+        <ul class="list-group mb-4">
+            {% for expense in expenses %}
+                <li class="list-group-item d-flex justify-content-between align-items-center mb-3 slide-in-left">
+                    <div>
+                        <strong class="text-danger">{{ expense.amount }}</strong> - 
+                        <span class="font-weight-bold">{{ expense.category.name }}</span> - 
+                        <small class="text-muted">{{ expense.date }}</small>
+                    </div>
+                </li>
+            {% empty %}
+                <li class="list-group-item text-center fade-in">No expenses recorded yet.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Action Buttons -->
+        <div class="text-center">
+            <a href="{% url 'expense_add' %}" class="btn btn-primary btn-lg mr-3 scale-on-hover">Add Expense</a>
+            <a href="{% url 'income_add' %}" class="btn btn-success btn-lg scale-on-hover">Add Income</a>
+        </div>
+    </div>
+{% endblock %}

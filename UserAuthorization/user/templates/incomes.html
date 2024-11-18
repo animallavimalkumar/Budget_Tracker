@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Incomes - Budget Tracker{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="mb-4 text-primary">Your Incomes</h2>
+
+        {% if incomes %}
+            <ul class="list-group">
+                {% for income in incomes %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            {{ income.amount }} - {{ income.category.name }} - {{ income.date }}
+                        </span>
+                        <div>
+                            <a href="{% url 'income_update' income.id %}" class="btn btn-warning btn-sm mr-2">Edit</a>
+                            <a href="{% url 'income_delete' income.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No incomes recorded yet.</p>
+        {% endif %}
+
+        <a href="{% url 'income_add' %}" class="btn btn-success mt-4">Add New Income</a>
+    </div>
+{% endblock %}
